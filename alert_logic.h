@@ -57,4 +57,13 @@ inline bool responseIsOk(const char* response) {
   return response != 0 && strstr(response, "OK") != 0;
 }
 
+// Copies text into out as exactly `width` characters, cut off or padded with spaces, so a 16x2 LCD line
+// never keeps characters of an earlier message. out needs room for width + 1 bytes.
+inline void fitLcdLine(const char* text, int width, char* out) {
+  int i = 0;
+  for (; i < width && text != 0 && text[i] != '\0'; i++) out[i] = text[i];
+  for (; i < width; i++) out[i] = ' ';
+  out[width] = '\0';
+}
+
 #endif

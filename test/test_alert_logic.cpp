@@ -100,6 +100,30 @@ static void test_response_ok_is_found_in_the_text() {
 }
 
 
+static void test_lcd_line_is_padded_to_the_width() {
+  char out[17];
+  fitLcdLine("READY", 16, out);
+  CHECK(strlen(out) == 16);
+  CHECK(strncmp(out, "READY", 5) == 0);
+  CHECK(out[5] == ' ' && out[15] == ' ');
+}
+
+
+static void test_lcd_line_is_cut_at_the_width() {
+  char out[17];
+  fitLcdLine("THIS TEXT IS FAR TOO LONG", 16, out);
+  CHECK(strlen(out) == 16);
+  CHECK(strncmp(out, "THIS TEXT IS FAR", 16) == 0);
+}
+
+
+static void test_lcd_line_of_nothing_is_blank() {
+  char out[17];
+  fitLcdLine(0, 16, out);
+  CHECK(strcmp(out, "                ") == 0);
+}
+
+
 int main() {
   test_accepts_international_numbers();
   test_rejects_numbers_without_a_plus();
@@ -113,6 +137,9 @@ int main() {
   test_alert_message_without_a_link_says_unknown();
   test_alert_message_needs_a_big_enough_buffer();
   test_response_ok_is_found_in_the_text();
+  test_lcd_line_is_padded_to_the_width();
+  test_lcd_line_is_cut_at_the_width();
+  test_lcd_line_of_nothing_is_blank();
   test_first_alert_is_always_allowed();
   test_alert_waits_for_the_cooldown();
   test_cooldown_survives_the_millis_rollover();
