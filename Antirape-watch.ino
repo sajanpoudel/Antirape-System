@@ -20,10 +20,6 @@ SoftwareSerial mySerial(GSM_RX_PIN, GSM_TX_PIN);
 LiquidCrystal lcd(9, 8, 5, 4, 3, 2);
 String textForSMS; // text of the rescue message
 RH_ASK driver; // 433 MHz receiver for the watch signal
-char i;
-char b;
-char msg;
-char call;
 
 // Registered numbers
 const int CONTACT_COUNT = 5;
@@ -68,12 +64,11 @@ void loop()
   // recv() does not block, so loop() keeps running when nothing arrives
   if (driver.recv(buf, &buflen))
   {
-    char i;
-    for (i = 0; i < buflen; i++)
+    for (uint8_t k = 0; k < buflen; k++)
     {
-      b = buf[i];
-      Serial.println(b);
-      if (b == ALERT_SIGNAL)
+      char received = buf[k];
+      Serial.println(received);
+      if (received == ALERT_SIGNAL)
       {
         // readdata();
         send1();
@@ -127,7 +122,7 @@ void sendsms(String message, String number)
 // Blinks the alert light BLINK_COUNT times.
 void blinkAlertLight()
 {
-  for (i = 0; i < BLINK_COUNT; i++)
+  for (int i = 0; i < BLINK_COUNT; i++)
   {
     digitalWrite(ALERT_LIGHT_PIN, HIGH);
     delay(BLINK_DELAY_MS);
