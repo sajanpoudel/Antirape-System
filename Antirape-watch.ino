@@ -4,6 +4,7 @@
 #include <LiquidCrystal.h>
 
 #include "alert_logic.h"
+#include "contacts.h"
 
 // Pins and timings used by the server box
 const int GSM_RX_PIN = 12;   // SIM900A TX goes here
@@ -24,15 +25,6 @@ RH_ASK driver; // 433 MHz receiver for the watch signal
 bool hasAlerted = false;
 unsigned long lastAlertAt = 0;
 
-// Registered numbers
-const int CONTACT_COUNT = 5;
-String contacts[CONTACT_COUNT] = {
-  "+9779811111111",
-  "+97798222222222",
-  "+97798333333333",
-  "+9779810366707",
-  "+9779817448555"
-};
 
 // Starts the serial ports, the LCD and the radio receiver.
 void setup()
@@ -51,7 +43,7 @@ void setup()
 
   for (int n = 0; n < CONTACT_COUNT; n++)
   {
-    if (!isValidPhoneNumber(contacts[n].c_str()))
+    if (!isValidPhoneNumber(CONTACT_NUMBERS[n]))
     {
       Serial.print("check the registered number ");
       Serial.println(n + 1);
@@ -102,7 +94,7 @@ void send1()
 
   for (int n = 0; n < CONTACT_COUNT; n++)
   {
-    sendsms(textForSMS, contacts[n]);
+    sendsms(textForSMS, String(CONTACT_NUMBERS[n]));
     Serial.println(textForSMS);
     Serial.print("message");
     Serial.print(n + 1);
@@ -160,7 +152,7 @@ void output()
 // Dials the last registered number through the GSM module.
 void sendcall()
 {
-  mySerial.println("ATD" + contacts[callIndex(CONTACT_COUNT)] + ";"); // call the last registered number
+  mySerial.println("ATD" + String(CONTACT_NUMBERS[callIndex(CONTACT_COUNT)]) + ";"); // call the last registered number
   Serial.println("Calling  ");            // print response over serial port
   delay(1000);
   Serial.println("called");
