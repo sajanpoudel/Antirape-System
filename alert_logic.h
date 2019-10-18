@@ -1,6 +1,7 @@
 #ifndef ALERT_LOGIC_H
 #define ALERT_LOGIC_H
 
+#include <stdint.h>
 #include <string.h>
 
 // Pure helpers for the server box. They avoid Arduino types so they can run in host tests.
@@ -32,6 +33,13 @@ inline bool buildSmsCommand(const char* number, char* out, size_t size) {
 // Which contact the alert calls: the last registered one.
 inline int callIndex(int contactCount) {
   return contactCount > 0 ? contactCount - 1 : -1;
+}
+
+// True when a new alert may start: none has run yet, or the cooldown since the last one is over.
+// The counters are 32 bit like millis() on an Uno and may wrap around.
+inline bool canStartAlert(bool hasAlerted, uint32_t now, uint32_t lastAlertAt, uint32_t cooldownMs) {
+  if (!hasAlerted) return true;
+  return (uint32_t)(now - lastAlertAt) >= cooldownMs;
 }
 
 #endif

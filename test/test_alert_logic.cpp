@@ -52,6 +52,24 @@ static void test_call_goes_to_the_last_contact() {
   CHECK(callIndex(0) == -1);
 }
 
+static void test_first_alert_is_always_allowed() {
+  CHECK(canStartAlert(false, 0, 0, 120000));
+}
+
+
+static void test_alert_waits_for_the_cooldown() {
+  CHECK(!canStartAlert(true, 119999, 0, 120000));
+  CHECK(canStartAlert(true, 120000, 0, 120000));
+}
+
+
+static void test_cooldown_survives_the_millis_rollover() {
+  uint32_t last = 0xFFFFFF00UL;
+  CHECK(!canStartAlert(true, 0x00000100UL, last, 120000));
+  CHECK(canStartAlert(true, 0x0001FFFFUL, last, 120000));
+}
+
+
 int main() {
   test_accepts_international_numbers();
   test_rejects_numbers_without_a_plus();
@@ -61,5 +79,8 @@ int main() {
   test_builds_the_sms_command();
   test_sms_command_needs_enough_room();
   test_call_goes_to_the_last_contact();
+  test_first_alert_is_always_allowed();
+  test_alert_waits_for_the_cooldown();
+  test_cooldown_survives_the_millis_rollover();
   return 0;
 }

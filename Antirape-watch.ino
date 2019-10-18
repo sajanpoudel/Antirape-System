@@ -15,11 +15,14 @@ const int BLINK_COUNT = 100;   // number of on/off cycles per alert
 const int BLINK_DELAY_MS = 250; // length of the on and of the off phase
 const int SMS_GAP_MS = 2000;   // pause between two SMS so the module can finish
 const char ALERT_SIGNAL = 'a'; // byte sent by the watch when the button is pressed
+const unsigned long ALERT_COOLDOWN_MS = 120000; // ignore button presses for two minutes after an alert
 
 SoftwareSerial mySerial(GSM_RX_PIN, GSM_TX_PIN);
 LiquidCrystal lcd(9, 8, 5, 4, 3, 2);
 String textForSMS; // text of the rescue message
 RH_ASK driver; // 433 MHz receiver for the watch signal
+bool hasAlerted = false;
+unsigned long lastAlertAt = 0;
 
 // Registered numbers
 const int CONTACT_COUNT = 5;
@@ -68,12 +71,13 @@ void loop()
     {
       char received = buf[k];
       Serial.println(received);
-      if (received == ALERT_SIGNAL)
+      if (received == ALERT_SIGNAL && canStartAlert(hasAlerted, millis(), lastAlertAt, ALERT_COOLDOWN_MS))
       {
-        // readdata();
         send1();
         sendcall();
         output();
+        hasAlerted = true;
+        lastAlertAt = millis();
       }
     }
   }
