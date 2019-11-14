@@ -21,6 +21,7 @@ const unsigned long ALERT_COOLDOWN_MS = 120000; // ignore button presses for two
 SoftwareSerial mySerial(GSM_RX_PIN, GSM_TX_PIN);
 LiquidCrystal lcd(9, 8, 5, 4, 3, 2);
 String textForSMS; // text of the rescue message
+const char LOCATION_LINK[] = "https://goo.gl/maps/search/query?=lat,lon"; // replace with the link of the place the watch is used
 RH_ASK driver; // 433 MHz receiver for the watch signal
 bool hasAlerted = false;
 unsigned long lastAlertAt = 0;
@@ -90,7 +91,9 @@ void loop()
 // Texts the rescue message to every registered number.
 void send1()
 {
-  textForSMS = "\nPLEASE RESCUE ME , I AM IN PROBLEM . '\n' MY CURRENT LOCATION IS : https://goo.gl/maps/search/query?=lat,lon";
+  char message[200];
+  buildAlertMessage(LOCATION_LINK, message, sizeof(message));
+  textForSMS = message;
 
   for (int n = 0; n < CONTACT_COUNT; n++)
   {

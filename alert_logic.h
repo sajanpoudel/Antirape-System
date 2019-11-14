@@ -42,4 +42,19 @@ inline bool canStartAlert(bool hasAlerted, uint32_t now, uint32_t lastAlertAt, u
   return (uint32_t)(now - lastAlertAt) >= cooldownMs;
 }
 
+// Builds the rescue message for a location link into out. Returns false when the buffer is too small.
+inline bool buildAlertMessage(const char* locationLink, char* out, size_t size) {
+  const char* head = "PLEASE RESCUE ME, I AM IN DANGER. MY CURRENT LOCATION IS: ";
+  if (locationLink == 0 || locationLink[0] == '\0') locationLink = "unknown";
+  if (size < strlen(head) + strlen(locationLink) + 1) return false;
+  strcpy(out, head);
+  strcat(out, locationLink);
+  return true;
+}
+
+// True when the GSM module's answer contains OK, which it sends after a command succeeded.
+inline bool responseIsOk(const char* response) {
+  return response != 0 && strstr(response, "OK") != 0;
+}
+
 #endif

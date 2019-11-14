@@ -70,6 +70,36 @@ static void test_cooldown_survives_the_millis_rollover() {
 }
 
 
+static void test_alert_message_contains_the_link() {
+  char out[160];
+  CHECK(buildAlertMessage("https://maps.example/1", out, sizeof(out)));
+  CHECK(strstr(out, "https://maps.example/1") != 0);
+  CHECK(strstr(out, "RESCUE") != 0);
+}
+
+
+static void test_alert_message_without_a_link_says_unknown() {
+  char out[160];
+  CHECK(buildAlertMessage("", out, sizeof(out)));
+  CHECK(strstr(out, "unknown") != 0);
+  CHECK(buildAlertMessage(0, out, sizeof(out)));
+}
+
+
+static void test_alert_message_needs_a_big_enough_buffer() {
+  char out[10];
+  CHECK(!buildAlertMessage("https://maps.example/1", out, sizeof(out)));
+}
+
+
+static void test_response_ok_is_found_in_the_text() {
+  CHECK(responseIsOk("AT+CMGF=1\r\r\nOK\r\n"));
+  CHECK(!responseIsOk("ERROR"));
+  CHECK(!responseIsOk(""));
+  CHECK(!responseIsOk(0));
+}
+
+
 int main() {
   test_accepts_international_numbers();
   test_rejects_numbers_without_a_plus();
@@ -79,6 +109,10 @@ int main() {
   test_builds_the_sms_command();
   test_sms_command_needs_enough_room();
   test_call_goes_to_the_last_contact();
+  test_alert_message_contains_the_link();
+  test_alert_message_without_a_link_says_unknown();
+  test_alert_message_needs_a_big_enough_buffer();
+  test_response_ok_is_found_in_the_text();
   test_first_alert_is_always_allowed();
   test_alert_waits_for_the_cooldown();
   test_cooldown_survives_the_millis_rollover();
