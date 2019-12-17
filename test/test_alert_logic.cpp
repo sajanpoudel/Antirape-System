@@ -17,9 +17,18 @@ static void test_rejects_letters_and_symbols() {
   CHECK(!isValidPhoneNumber("+977 9811111111"));
 }
 
+
+static void test_rejects_numbers_of_the_wrong_length() {
+  CHECK(!isValidPhoneNumber("+1234567"));
+  CHECK(!isValidPhoneNumber("+1234567890123456"));
+  CHECK(isValidPhoneNumber("+12345678"));
+  CHECK(isValidPhoneNumber("+123456789012345"));
+}
+
 int main() {
   test_accepts_international_numbers();
   test_rejects_numbers_without_a_plus();
   test_rejects_letters_and_symbols();
+  test_rejects_numbers_of_the_wrong_length();
   return 0;
 }
