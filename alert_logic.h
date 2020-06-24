@@ -17,4 +17,16 @@ inline bool isValidPhoneNumber(const char* number) {
   return true;
 }
 
+// Builds the AT command that starts an SMS to a number, for example AT+CMGS="+977...".
+// Returns false when the buffer is too small.
+inline bool buildSmsCommand(const char* number, char* out, size_t size) {
+  const char* prefix = "AT+CMGS=\"";
+  size_t needed = strlen(prefix) + strlen(number) + 2;  // closing quote and the terminator
+  if (size < needed) return false;
+  strcpy(out, prefix);
+  strcat(out, number);
+  strcat(out, "\"");
+  return true;
+}
+
 #endif
