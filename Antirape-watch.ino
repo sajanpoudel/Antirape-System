@@ -40,6 +40,7 @@ void setup()
   pinMode(ALERT_LIGHT_PIN, OUTPUT);
 
   lcd.begin(16, 2);
+  showReady();
   Serial.begin(SERIAL_BAUD);
   mySerial.begin(SERIAL_BAUD);
 
@@ -56,6 +57,16 @@ void setup()
       Serial.println(n + 1);
     }
   }
+}
+
+// Shows that the box is switched on and waiting for the watch.
+void showReady()
+{
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("SYSTEM READY");
+  lcd.setCursor(0, 1);
+  lcd.print("WAITING FOR WATCH");
 }
 
 // Waits for the watch signal and starts the alert when it arrives.
@@ -76,6 +87,7 @@ void loop()
         send1();
         sendcall();
         output();
+        showReady();
         hasAlerted = true;
         lastAlertAt = millis();
       }
