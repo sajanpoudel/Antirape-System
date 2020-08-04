@@ -106,6 +106,21 @@ void send1()
   }
 }
 
+// Collects what the GSM module answers within timeoutMs.
+String readGsmResponse(unsigned long timeoutMs)
+{
+  String response = "";
+  unsigned long start = millis();
+  while (millis() - start < timeoutMs)
+  {
+    while (mySerial.available())
+    {
+      response += (char)mySerial.read();
+    }
+  }
+  return response;
+}
+
 // Sends one SMS through the GSM module using AT commands.
 void sendsms(String message, String number)
 {
@@ -117,7 +132,10 @@ void sendsms(String message, String number)
   }
   String mnumber = command;
   mySerial.print("AT+CMGF=1\r");
-  delay(1000);
+  if (!responseIsOk(readGsmResponse(1000).c_str()))
+  {
+    Serial.println("the GSM module did not accept text mode");
+  }
   mySerial.println(mnumber); // recipient's mobile number, in international format
 
   delay(1000);
