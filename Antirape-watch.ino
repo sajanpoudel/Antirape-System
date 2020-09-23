@@ -19,6 +19,7 @@ const char ALERT_SIGNAL = 'a'; // byte sent by the watch when the button is pres
 const unsigned long ALERT_COOLDOWN_MS = 120000; // ignore button presses for two minutes after an alert
 
 SoftwareSerial mySerial(GSM_RX_PIN, GSM_TX_PIN);
+const int LCD_COLUMNS = 16;
 LiquidCrystal lcd(9, 8, 5, 4, 3, 2);
 String textForSMS; // text of the rescue message
 const char LOCATION_LINK[] = "https://goo.gl/maps/search/query?=lat,lon"; // replace with the link of the place the watch is used
@@ -32,7 +33,7 @@ void setup()
 {
   pinMode(ALERT_LIGHT_PIN, OUTPUT);
 
-  lcd.begin(16, 2);
+  lcd.begin(LCD_COLUMNS, 2);
   showReady();
   Serial.begin(SERIAL_BAUD);
   mySerial.begin(SERIAL_BAUD);
@@ -52,14 +53,22 @@ void setup()
   }
 }
 
+// Writes two lines on the display, each one padded or cut to the 16 columns.
+void showLines(const char* top, const char* bottom)
+{
+  char line[LCD_COLUMNS + 1];
+  fitLcdLine(top, LCD_COLUMNS, line);
+  lcd.setCursor(0, 0);
+  lcd.print(line);
+  fitLcdLine(bottom, LCD_COLUMNS, line);
+  lcd.setCursor(0, 1);
+  lcd.print(line);
+}
+
 // Shows that the box is switched on and waiting for the watch.
 void showReady()
 {
-  lcd.clear();
-  lcd.setCursor(0, 0);
-  lcd.print("SYSTEM READY");
-  lcd.setCursor(0, 1);
-  lcd.print("AWAITING WATCH");
+  showLines("SYSTEM READY", "AWAITING WATCH");
 }
 
 // Waits for the watch signal and starts the alert when it arrives.
@@ -163,10 +172,7 @@ void blinkAlertLight()
 // Shows the warning on the LCD and blinks the light.
 void output()
 {
-  lcd.setCursor(0, 0);      // row 0, column 0
-  lcd.print("WOMAN IS    "); // 16x2 LCD module
-  lcd.setCursor(2, 1);      // row 1, column 2
-  lcd.print("     IN DANGER");
+  showLines("WOMAN IS", "  IN DANGER");
   blinkAlertLight();
 }
 
