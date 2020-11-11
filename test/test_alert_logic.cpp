@@ -39,6 +39,12 @@ static void test_builds_the_sms_command() {
   CHECK(strcmp(buffer, "AT+CMGS=\"+9779811111111\"") == 0);
 }
 
+
+static void test_sms_command_needs_enough_room() {
+  char buffer[10];
+  CHECK(!buildSmsCommand("+9779811111111", buffer, sizeof(buffer)));
+}
+
 int main() {
   test_accepts_international_numbers();
   test_rejects_numbers_without_a_plus();
@@ -46,5 +52,6 @@ int main() {
   test_rejects_numbers_of_the_wrong_length();
   test_rejects_empty_input();
   test_builds_the_sms_command();
+  test_sms_command_needs_enough_room();
   return 0;
 }
