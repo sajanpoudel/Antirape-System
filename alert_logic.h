@@ -29,4 +29,9 @@ inline bool buildSmsCommand(const char* number, char* out, size_t size) {
   return true;
 }
 
+// Which contact the alert calls: the last registered one.
+inline int callIndex(int contactCount) {
+  return contactCount > 0 ? contactCount - 1 : -1;
+}
+
 #endif
