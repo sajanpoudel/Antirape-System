@@ -45,6 +45,13 @@ static void test_sms_command_needs_enough_room() {
   CHECK(!buildSmsCommand("+9779811111111", buffer, sizeof(buffer)));
 }
 
+
+static void test_call_goes_to_the_last_contact() {
+  CHECK(callIndex(5) == 4);
+  CHECK(callIndex(1) == 0);
+  CHECK(callIndex(0) == -1);
+}
+
 int main() {
   test_accepts_international_numbers();
   test_rejects_numbers_without_a_plus();
@@ -53,5 +60,6 @@ int main() {
   test_rejects_empty_input();
   test_builds_the_sms_command();
   test_sms_command_needs_enough_room();
+  test_call_goes_to_the_last_contact();
   return 0;
 }
