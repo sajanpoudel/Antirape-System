@@ -66,7 +66,7 @@ void showReady()
   lcd.setCursor(0, 0);
   lcd.print("SYSTEM READY");
   lcd.setCursor(0, 1);
-  lcd.print("WAITING FOR WATCH");
+  lcd.print("AWAITING WATCH");
 }
 
 // Waits for the watch signal and starts the alert when it arrives.
