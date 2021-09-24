@@ -1,0 +1,2 @@
+# Antirape-System
+A watch is given to the victim which he should wear every time. When a victim feels unsafe, she/he needs to press a button present in the watch. Then the victim presses the button , a message is generated saying "I am in danger. Please rescue me . My Location is ....." And also the location of victim is stated in the message and the message is delivered to local authorities and their family members .
