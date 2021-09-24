@@ -17,6 +17,8 @@ The message can be sent to the police personal number of station number anywhere
 
 
 The watch is rechargeable. The charger is given to victim. The watch works well more than 8 hours once it is fully charged.The server box can work on both AC as well as DC.
+![image](https://user-images.githubusercontent.com/35656849/134703432-3509239e-83d7-4616-b5bb-1c2278a23e03.png)
+
 
 
                                       Instruments Used:
@@ -31,3 +33,14 @@ GPS module to locate victim location.
 LCD panel to display messages
 
 Buffer to produce beeping sound
+                                     
+                                     
+                                      Circuit Connection:
+
+![image](https://user-images.githubusercontent.com/35656849/134703662-1cf6a169-5360-4128-a70e-aa8872521724.png)
+
+                              Video
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ZIGlyxaKdog?start=324" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
