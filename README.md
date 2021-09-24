@@ -17,8 +17,13 @@ The watch is rechargeable. The charger is given to victim. The watch works well 
 
                                       Instruments Used:
 1 arduino nano in watch and 1 arduino Mega in server box.
+
 Transmitter and receiver
+
 GSM module to send messages to mobile number.
+
 GPS module to locate victim location.
+
 LCD panel to display messages
+
 Buffer to produce beeping sound
