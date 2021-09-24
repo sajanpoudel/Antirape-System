@@ -1,7 +1,9 @@
 A watch is given to the victim which he should wear every time. When a victim feels unsafe, he needs to press a button present in the watch. Then the victim presses the button , a message is generated saying "I am in danger. Please rescue me . My Location is ....." And also the location of victim is stated in the message and the message is delivered to local authorities and their family members .
 
-    ![GitHub Logo](/images/logo.png)
-     Format: ![Alt Text](url)
+![image](https://user-images.githubusercontent.com/35656849/134703203-8261bfd3-e7c7-4e7f-8abb-aef5b50113ab.png)
+
+
+    
 
                                                           Working mechanism:
 There will be two systems watch and server. The watch consists of arduino, GSM module ,GPS sensor ,transmitter. When a button is pressed, the signals get triggered and GPS sensor generates the location in the form of latitude and longitude. The values of latitude and longitude are stored in two different variables. The sample message is created saying "I am in danger. Please rescue me ." The link is also created using latitude and longitude variables that redirect to Google maps url. Then the message is sent to the local authorities phone number which will be set by the programmer during watch construction.
