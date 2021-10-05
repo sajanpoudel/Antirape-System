@@ -23,11 +23,14 @@ char msg;
 char call;
 
 // Registered numbers
-String f1001 = "+9779811111111";
-String f1002 = "+97798222222222";
-String f1003 = "+97798333333333";
-String f1004 = "+9779810366707";
-String f1005 = "+9779817448555";
+const int CONTACT_COUNT = 5;
+String contacts[CONTACT_COUNT] = {
+  "+9779811111111",
+  "+97798222222222",
+  "+97798333333333",
+  "+9779810366707",
+  "+9779817448555"
+};
 
 void setup()
 {
@@ -69,36 +72,16 @@ void loop()
 void send1()
 {
   textForSMS = "\nPLEASE RESCUE ME , I AM IN PROBLEM . '\n' MY CURRENT LOCATION IS : https://goo.gl/maps/search/query?=lat,lon";
-  //sendSMS(textForSMS);
-  sendsms(textForSMS, f1001); // you can use a variable of the type String
-  Serial.println(textForSMS);
-  Serial.println("message1 sent.");
-  delay(SMS_GAP_MS);
 
-  sendsms(textForSMS, f1002); // you can also write any message that you want to send.
-  Serial.println(textForSMS);
-  Serial.println("message2 sent.");
-  delay(SMS_GAP_MS);
-
-  sendsms(textForSMS, f1003);
-  Serial.println(textForSMS);
-  Serial.println("message3 sent.");
-  delay(SMS_GAP_MS);
-
-  sendsms(textForSMS, f1004);
-  Serial.println(textForSMS);
-  Serial.println("message4 sent.");
-  delay(SMS_GAP_MS);
-
-  sendsms(textForSMS, f1005);
-  Serial.println(textForSMS);
-  Serial.println("message5 sent.");
-  delay(SMS_GAP_MS);
-
-  //sendsms(textForSMS, f1006);
-  // Serial.println(textForSMS);
-  // Serial.println("message5 sent.");
-  //delay(3000);
+  for (int n = 0; n < CONTACT_COUNT; n++)
+  {
+    sendsms(textForSMS, contacts[n]);
+    Serial.println(textForSMS);
+    Serial.print("message");
+    Serial.print(n + 1);
+    Serial.println(" sent.");
+    delay(SMS_GAP_MS);
+  }
 }
 
 void sendsms(String message, String number)
