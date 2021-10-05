@@ -3,12 +3,21 @@
 #include <SPI.h>
 #include <LiquidCrystal.h>
 
-SoftwareSerial mySerial(12, 13);
+const int GSM_RX_PIN = 12;
+const int GSM_TX_PIN = 13;
+const int ALERT_LIGHT_PIN = 6;
+const long SERIAL_BAUD = 9600;
+const long GSM_BAUD = 9600;
+const int BLINK_COUNT = 100;
+const int BLINK_DELAY_MS = 250;
+const int SMS_GAP_MS = 2000;
+const char ALERT_SIGNAL = 'a';
+
+SoftwareSerial mySerial(GSM_RX_PIN, GSM_TX_PIN);
 LiquidCrystal lcd(9, 8, 5, 4, 3, 2);
 String textForSMS;
 RH_ASK driver;
 char i;
-int light = 6;
 char b;
 char msg;
 char call;
@@ -22,11 +31,11 @@ String f1005 = "+9779817448555";
 
 void setup()
 {
-  pinMode(light, OUTPUT);
+  pinMode(ALERT_LIGHT_PIN, OUTPUT);
 
   lcd.begin(16, 2);
-  Serial.begin(9600);
-  mySerial.begin(9600);
+  Serial.begin(SERIAL_BAUD);
+  mySerial.begin(SERIAL_BAUD);
 
   // original 19200. while enter 9600 for sim900A
   Serial.println(" logging time completed!");
@@ -46,7 +55,7 @@ void loop()
     {
       b = buf[i];
       Serial.println(b);
-      if (b == 'a')
+      if (b == ALERT_SIGNAL)
       {
         // readdata();
         send1();
@@ -64,27 +73,27 @@ void send1()
   sendsms(textForSMS, f1001); // you can use a variable of the type String
   Serial.println(textForSMS);
   Serial.println("message1 sent.");
-  delay(2000);
+  delay(SMS_GAP_MS);
 
   sendsms(textForSMS, f1002); // you can also write any message that you want to send.
   Serial.println(textForSMS);
   Serial.println("message2 sent.");
-  delay(2000);
+  delay(SMS_GAP_MS);
 
   sendsms(textForSMS, f1003);
   Serial.println(textForSMS);
   Serial.println("message3 sent.");
-  delay(2000);
+  delay(SMS_GAP_MS);
 
   sendsms(textForSMS, f1004);
   Serial.println(textForSMS);
   Serial.println("message4 sent.");
-  delay(2000);
+  delay(SMS_GAP_MS);
 
   sendsms(textForSMS, f1005);
   Serial.println(textForSMS);
   Serial.println("message5 sent.");
-  delay(2000);
+  delay(SMS_GAP_MS);
 
   //sendsms(textForSMS, f1006);
   // Serial.println(textForSMS);
@@ -115,12 +124,12 @@ void output()
   lcd.print("WOMAN IS    ");     // prints 16x2 LCD MODULE
   lcd.setCursor(2, 1);          //sets the cursor at row 1 column 2
   lcd.print("     IN DANGER");
-  for (i = 0; i < 100; i++)
+  for (i = 0; i < BLINK_COUNT; i++)
   {
-    digitalWrite(light, HIGH);
-    delay(250);
-    digitalWrite(light, LOW);
-    delay(250);
+    digitalWrite(ALERT_LIGHT_PIN, HIGH);
+    delay(BLINK_DELAY_MS);
+    digitalWrite(ALERT_LIGHT_PIN, LOW);
+    delay(BLINK_DELAY_MS);
   }
 }
 
