@@ -101,12 +101,8 @@ void sendsms(String message, String number)
   // SIM900power();
 }
 
-void output()
+void blinkAlertLight()
 {
-  lcd.setCursor(0, 0);          //sets the cursor at row 0 column 0
-  lcd.print("WOMAN IS    ");     // prints 16x2 LCD MODULE
-  lcd.setCursor(2, 1);          //sets the cursor at row 1 column 2
-  lcd.print("     IN DANGER");
   for (i = 0; i < BLINK_COUNT; i++)
   {
     digitalWrite(ALERT_LIGHT_PIN, HIGH);
@@ -116,9 +112,18 @@ void output()
   }
 }
 
+void output()
+{
+  lcd.setCursor(0, 0);      // row 0, column 0
+  lcd.print("WOMAN IS    "); // 16x2 LCD module
+  lcd.setCursor(2, 1);      // row 1, column 2
+  lcd.print("     IN DANGER");
+  blinkAlertLight();
+}
+
 void sendcall()
 {
-  mySerial.println("ATD+9779817448555;"); //Calling Numbers
+  mySerial.println("ATD" + contacts[CONTACT_COUNT - 1] + ";"); // call the last registered number
   Serial.println("Calling  ");            // print response over serial port
   delay(1000);
   Serial.println("called");
