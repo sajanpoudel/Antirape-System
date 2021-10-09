@@ -40,7 +40,7 @@ void setup()
   Serial.begin(SERIAL_BAUD);
   mySerial.begin(SERIAL_BAUD);
 
-  // original 19200. while enter 9600 for sim900A
+  // The module defaults to 19200 baud, a SIM900A needs 9600.
   Serial.println(" logging time completed!");
   if (!driver.init())
     Serial.println("init failed");
@@ -51,7 +51,8 @@ void loop()
   uint8_t buf[1];
   uint8_t buflen = sizeof(buf);
 
-  if (driver.recv(buf, &buflen)) // Non-blocking
+  // recv() does not block, so loop() keeps running when nothing arrives
+  if (driver.recv(buf, &buflen))
   {
     char i;
     for (i = 0; i < buflen; i++)
@@ -69,6 +70,7 @@ void loop()
   }
 }
 
+// Texts the rescue message to every registered number.
 void send1()
 {
   textForSMS = "\nPLEASE RESCUE ME , I AM IN PROBLEM . '\n' MY CURRENT LOCATION IS : https://goo.gl/maps/search/query?=lat,lon";
@@ -84,6 +86,7 @@ void send1()
   }
 }
 
+// Sends one SMS through the GSM module using AT commands.
 void sendsms(String message, String number)
 {
   String mnumber = "AT + CMGS = \"" + number + "\"";
