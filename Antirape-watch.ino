@@ -94,7 +94,13 @@ void send1()
 // Sends one SMS through the GSM module using AT commands.
 void sendsms(String message, String number)
 {
-  String mnumber = "AT + CMGS = \"" + number + "\"";
+  char command[48];
+  if (!buildSmsCommand(number.c_str(), command, sizeof(command)))
+  {
+    Serial.println("number too long, message skipped");
+    return;
+  }
+  String mnumber = command;
   mySerial.print("AT+CMGF=1\r");
   delay(1000);
   mySerial.println(mnumber); // recipient's mobile number, in international format
