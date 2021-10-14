@@ -3,6 +3,7 @@
 #include <SPI.h>
 #include <LiquidCrystal.h>
 
+// Pins and timings used by the server box
 const int GSM_RX_PIN = 12;
 const int GSM_TX_PIN = 13;
 const int ALERT_LIGHT_PIN = 6;
