@@ -6,7 +6,7 @@
 // Pins and timings used by the server box
 const int GSM_RX_PIN = 12;   // SIM900A TX goes here
 const int GSM_TX_PIN = 13;   // SIM900A RX goes here
-const int ALERT_LIGHT_PIN = 6;
+const int ALERT_LIGHT_PIN = 6; // bulb or buffer that blinks during an alert
 const long SERIAL_BAUD = 9600;
 const long GSM_BAUD = 9600;
 const int BLINK_COUNT = 100;
