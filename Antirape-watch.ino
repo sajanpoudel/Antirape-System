@@ -11,7 +11,7 @@ const long SERIAL_BAUD = 9600;
 const long GSM_BAUD = 9600;
 const int BLINK_COUNT = 100;   // number of on/off cycles per alert
 const int BLINK_DELAY_MS = 250; // length of the on and of the off phase
-const int SMS_GAP_MS = 2000;
+const int SMS_GAP_MS = 2000;   // pause between two SMS so the module can finish
 const char ALERT_SIGNAL = 'a';
 
 SoftwareSerial mySerial(GSM_RX_PIN, GSM_TX_PIN);
