@@ -10,7 +10,7 @@ const int ALERT_LIGHT_PIN = 6; // bulb or buffer that blinks during an alert
 const long SERIAL_BAUD = 9600;
 const long GSM_BAUD = 9600;
 const int BLINK_COUNT = 100;   // number of on/off cycles per alert
-const int BLINK_DELAY_MS = 250;
+const int BLINK_DELAY_MS = 250; // length of the on and of the off phase
 const int SMS_GAP_MS = 2000;
 const char ALERT_SIGNAL = 'a';
 
