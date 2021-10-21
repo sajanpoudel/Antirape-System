@@ -12,7 +12,7 @@ const long GSM_BAUD = 9600;
 const int BLINK_COUNT = 100;   // number of on/off cycles per alert
 const int BLINK_DELAY_MS = 250; // length of the on and of the off phase
 const int SMS_GAP_MS = 2000;   // pause between two SMS so the module can finish
-const char ALERT_SIGNAL = 'a';
+const char ALERT_SIGNAL = 'a'; // byte sent by the watch when the button is pressed
 
 SoftwareSerial mySerial(GSM_RX_PIN, GSM_TX_PIN);
 LiquidCrystal lcd(9, 8, 5, 4, 3, 2);
