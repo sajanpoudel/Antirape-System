@@ -17,7 +17,7 @@ const char ALERT_SIGNAL = 'a'; // byte sent by the watch when the button is pres
 SoftwareSerial mySerial(GSM_RX_PIN, GSM_TX_PIN);
 LiquidCrystal lcd(9, 8, 5, 4, 3, 2);
 String textForSMS; // text of the rescue message
-RH_ASK driver;
+RH_ASK driver; // 433 MHz receiver for the watch signal
 char i;
 char b;
 char msg;
