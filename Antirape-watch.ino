@@ -33,6 +33,7 @@ String contacts[CONTACT_COUNT] = {
   "+9779817448555"
 };
 
+// Starts the serial ports, the LCD and the radio receiver.
 void setup()
 {
   pinMode(ALERT_LIGHT_PIN, OUTPUT);
