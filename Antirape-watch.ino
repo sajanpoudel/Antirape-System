@@ -48,6 +48,7 @@ void setup()
     Serial.println("init failed");
 }
 
+// Waits for the watch signal and starts the alert when it arrives.
 void loop()
 {
   uint8_t buf[1];
