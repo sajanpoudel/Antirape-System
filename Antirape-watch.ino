@@ -107,6 +107,7 @@ void sendsms(String message, String number)
   // SIM900power();
 }
 
+// Blinks the alert light BLINK_COUNT times.
 void blinkAlertLight()
 {
   for (i = 0; i < BLINK_COUNT; i++)
