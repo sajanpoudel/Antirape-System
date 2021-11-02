@@ -119,6 +119,7 @@ void blinkAlertLight()
   }
 }
 
+// Shows the warning on the LCD and blinks the light.
 void output()
 {
   lcd.setCursor(0, 0);      // row 0, column 0
