@@ -129,6 +129,7 @@ void output()
   blinkAlertLight();
 }
 
+// Dials the last registered number through the GSM module.
 void sendcall()
 {
   mySerial.println("ATD" + contacts[CONTACT_COUNT - 1] + ";"); // call the last registered number
