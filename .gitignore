@@ -1,0 +1,4 @@
+build/
+*.hex
+*.elf
+.DS_Store
