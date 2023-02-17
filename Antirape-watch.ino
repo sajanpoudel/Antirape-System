@@ -140,7 +140,7 @@ void output()
 // Dials the last registered number through the GSM module.
 void sendcall()
 {
-  mySerial.println("ATD" + contacts[CONTACT_COUNT - 1] + ";"); // call the last registered number
+  mySerial.println("ATD" + contacts[callIndex(CONTACT_COUNT)] + ";"); // call the last registered number
   Serial.println("Calling  ");            // print response over serial port
   delay(1000);
   Serial.println("called");
