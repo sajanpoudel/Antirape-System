@@ -48,6 +48,15 @@ void setup()
   Serial.println(" logging time completed!");
   if (!driver.init())
     Serial.println("init failed");
+
+  for (int n = 0; n < CONTACT_COUNT; n++)
+  {
+    if (!isValidPhoneNumber(contacts[n].c_str()))
+    {
+      Serial.print("check the registered number ");
+      Serial.println(n + 1);
+    }
+  }
 }
 
 // Waits for the watch signal and starts the alert when it arrives.
