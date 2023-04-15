@@ -1,0 +1,16 @@
+name: arduino
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: arduino/setup-arduino-cli@v2
+      - run: arduino-cli core install arduino:avr
+      - run: arduino-cli lib install RadioHead LiquidCrystal
+      - run: sh test/run.sh
+      - run: sh scripts/compile.sh
