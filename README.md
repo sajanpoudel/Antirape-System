@@ -67,3 +67,10 @@ Buffer to produce beeping sound
 - [Hardware](docs/hardware.md)
 - [What happens during an alert](docs/alert-flow.md)
 - [Registered numbers](docs/registered-numbers.md)
+
+## Tests and build
+
+```
+sh test/run.sh        # host side tests for alert_logic.h (needs g++)
+sh scripts/compile.sh # compiles the sketch (needs arduino-cli, the AVR core, RadioHead and LiquidCrystal)
+```
