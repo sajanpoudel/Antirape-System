@@ -54,8 +54,9 @@ Buffer to produce beeping sound
 
 ![image](https://user-images.githubusercontent.com/35656849/134703662-1cf6a169-5360-4128-a70e-aa8872521724.png)
 
-**Video**
+**Demo Video**
 
-![Anti-Rape Watch Demo](https://drive.google.com/file/d/16oUzJ25ZZx_akrpArYxueoXifferAxby/view?usp=sharing)
+
+![Anti-Rape Watch Demo](https://github.com/sajanpoudel/Antirape-System/blob/sajanpoudel-demovideo/antirape-watch-demo.gif) 
 
 
